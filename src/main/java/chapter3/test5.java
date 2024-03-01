@@ -5,25 +5,37 @@ import java.util.Scanner;
 
 public class test5 {
     // 강의 참고 코드
-    public int solution(int num) {
-        int answer = 0;
-        int lt = 1;
-        int sum = 0;
-        for (int rt = 1; rt <= (num / 2) + 1; rt++) {
-            // rt를 num/2 +1 까지만 도는 이유는 연속된 수의 합이 num과 같아야 하는 것이므로
-            // 이를 충족할 수 있는 연속된 수 중 num/2+1이 젤 큰 숫자임
-            sum += rt;
-            if (sum == num) answer++;
-            while(sum>=num){
-                sum -= lt++;
-                if (sum == num) {
-                        answer++;
-                    }
+//    public int solution(int num) {
+//        int answer = 0;
+//        int lt = 1;
+//        int sum = 0;
+//        for (int rt = 1; rt <= (num / 2) + 1; rt++) {
+//            // rt를 num/2 +1 까지만 도는 이유는 연속된 수의 합이 num과 같아야 하는 것이므로
+//            // 이를 충족할 수 있는 연속된 수 중 num/2+1이 젤 큰 숫자임
+//            sum += rt;
+//            if (sum == num) answer++;
+//            while(sum>=num){
+//                sum -= lt++;
+//                if (sum == num) {
+//                        answer++;
+//                    }
+//
+//                }
+//            }
+//
+//        return answer;
+//    }
 
-                }
-            }
-
-        return answer;
+    // 강의 참고 코드 2
+    public int solution(int n) {
+        int answer = 0, cnt = 1;
+        n--;
+        while (n > 0) {
+            cnt++;
+            n = n - cnt;
+            if(n%cnt==0) answer++;
+        }
+   return answer;
     }
 
     // 내가 짠 코드
