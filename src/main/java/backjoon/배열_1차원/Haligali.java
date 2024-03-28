@@ -1,4 +1,4 @@
-package backjoon.과제;
+package backjoon.배열_1차원;
 
 import java.io.*;
 import java.util.HashMap;
