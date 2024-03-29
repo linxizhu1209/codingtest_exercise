@@ -1,0 +1,21 @@
+
+import java.io.*;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Integer n = Integer.parseInt(bf.readLine());
+        int[] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = Integer.parseInt(bf.readLine());
+        }
+        Arrays.sort(arr);
+        for(int x:arr){
+            bw.write(x+"\n");
+        }
+        bw.close();
+
+    }
+}
