@@ -1,35 +1,41 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedHashMap;
+import java.io.OutputStreamWriter;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        int m = Integer.parseInt(br.readLine());
-        LinkedHashMap<String,Integer> map = new LinkedHashMap<>();
-        map.put("I",n+1);
-        map.put("O",n);
-        StringBuilder sb = new StringBuilder();
-        int finish = 0;
-        while(finish<2) {
-            for (String x : map.keySet()) {
-                if (map.get(x) != 0) {
-                    sb.append(x);
-                    map.put(x, map.get(x) - 1);
-                } else finish++;
+    private static int solution(String S, int N) {
+        int count = 0;
+        int patternCount = 0;
+
+        for (int i = 1; i < S.length() - 1; i++) {
+                if (S.charAt(i-1) == 'I' && S.charAt(i) == 'O' && S.charAt(i+1) == 'I') {
+                    patternCount++;
+                    if (patternCount == N) {
+                        count++;
+                        patternCount--;
+                    }
+                    i++;
+                } else {
+                    patternCount = 0;
             }
         }
-        int count = 0;
-        String s = br.readLine();
-        StringBuilder s2 = new StringBuilder(s.substring(0,(2*n)+1));
-        if(s2.compareTo(sb)==0) count++;
-        for(int i=(2*n)+1;i<m;i++){
-            s2.replace(0,1,"");
-            s2.append(s.charAt(i));
-            if(s2.compareTo(sb) == 0) count++;
-        }
-        System.out.println(count);
+
+        return count;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
+        String S = br.readLine();
+
+        bw.write(String.valueOf(solution(S, N)));
+
+        bw.close();
+        br.close();
     }
 }
