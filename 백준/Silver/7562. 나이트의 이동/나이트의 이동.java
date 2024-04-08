@@ -48,6 +48,7 @@ public class Main {
         q.offer(new PointXY(x,y));
         check[x][y] = true;
         while(!q.isEmpty()){
+            if(check[targetX][targetY]) break;
             PointXY point = q.poll();
             for(int i=0;i<8;i++){
              if(point.x+dx[i]>=0&&point.y+dy[i]>=0&&point.y+dy[i]<m&&point.x+dx[i]<m&&!check[point.x+dx[i]][point.y+dy[i]]){
