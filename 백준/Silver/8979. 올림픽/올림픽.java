@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
@@ -8,12 +7,12 @@ import java.util.StringTokenizer;
 public class Main {
 
     static class Nation implements Comparable<Nation> {
-        int nationNum;
+        long nationNum;
         int g;
         int s;
         int b;
 
-        public Nation(int nationNum,int g, int s, int b) {
+        public Nation(long nationNum,int g, int s, int b) {
             this.nationNum = nationNum;
             this.g = g;
             this.s = s;
@@ -32,14 +31,14 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         StringTokenizer token = new StringTokenizer(in.nextLine());
-        int nation = Integer.parseInt(token.nextToken()); // 국가 수
-        int wantNation = Integer.parseInt(token.nextToken()); // 알고싶은 국가의 번호
+        long nation = Long.parseLong(token.nextToken()); // 국가 수
+        long wantNation = Long.parseLong(token.nextToken()); // 알고싶은 국가의 번호
         // map으로 ? 우선순위큐?
         PriorityQueue<Nation> pq = new PriorityQueue<>();
         int count = 1; // 등수
-        for(int i=0;i<nation;i++) {
+        for(long i=0;i<nation;i++) {
             token = new StringTokenizer(in.nextLine());
-            int n = Integer.parseInt(token.nextToken()); // 국가 숫자
+            long n = Long.parseLong(token.nextToken()); // 국가 숫자
             int g = Integer.parseInt(token.nextToken()); // 금
             int s = Integer.parseInt(token.nextToken()); // 은
             int b = Integer.parseInt(token.nextToken()); // 동
@@ -47,12 +46,36 @@ public class Main {
             pq.add(nt);
         }
 
+        // todo 동점인 경우 count가 전에껏보다 +1인 거면 안됨
+        Nation preNation = null;
+        int preNationNum = 0;
         while(!pq.isEmpty()) {
             Nation n = pq.poll();
+            int g = n.g;
+            int s = n.s;
+            int b = n.b;
+            int pg = 0;
+            int ps = 0;
+            int pb = 0;
+            if(preNation != null) {
+                pg = preNation.g;
+                ps = preNation.s;
+                pb = preNation.b;
+            }
+            if(pg == g && ps == s && pb == b){
+                // 등수가 같으면서 원하는 국가인 경우. 이전 국가의 등수 그대로 return
+                if(n.nationNum == wantNation){
+                    System.out.println(preNationNum);
+                    break;
+                }
+            } else{
+                preNationNum = count;
+            }
             if(n.nationNum == wantNation) {
                 System.out.println(count);
                 break;
             }
+            preNation = n;
             count++;
         }
     }
